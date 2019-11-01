@@ -45,8 +45,10 @@ int main(){
   tty.c_cflag &= ~PARENB;
 
   unsigned char msg[MSG_SIZE];
-  int settle_time = 4; //implement a send back to confirm stabilization 
+  int settle_time = 4; //implement a send back to confirm stabilization
 
+  write(arduino_usb, "0512,0512,0512,0512", sizeof(msg));
+  sleep(settle_time);
   write(arduino_usb, "0600,0600,0600,0600", sizeof(msg));
   sleep(settle_time);
   write(arduino_usb, "0800,0800,0800,0800", sizeof(msg));
@@ -61,6 +63,8 @@ int main(){
   sleep(settle_time);
   write(arduino_usb, "0512,412,0512,612", sizeof(msg));
   sleep(settle_time);
+  write(arduino_usb, "0512,0512,0512,0512", sizeof(msg));
+
 
 
 
