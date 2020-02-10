@@ -3,6 +3,7 @@
 #include <cerrno>
 #include <iostream>
 #include <fstream>
+#include <string>
 
 //Linux Headers
 #include <unistd.h> //unix standard function defs read() write() open
@@ -12,11 +13,13 @@
 
 // C library headers
 #include <stdio.h>
-#include <string.h>
+//#include <string.h>
 
 
 
 #define MSG_SIZE 19 //sum of 4 char long angles and delimiters
+
+
 
 
 using namespace std;
@@ -46,9 +49,11 @@ int main(){
 
   unsigned char msg[MSG_SIZE];
   int settle_time = 4; //implement a send back to confirm stabilization
+  int init_time = 5;
 
   write(arduino_usb, "0512,0512,0512,0512", sizeof(msg));
-  sleep(settle_time);
+  sleep(init_time);
+  printf("initialized\n");
   write(arduino_usb, "0600,0600,0600,0600", sizeof(msg));
   sleep(settle_time);
   write(arduino_usb, "0800,0800,0800,0800", sizeof(msg));
@@ -57,7 +62,7 @@ int main(){
   sleep(settle_time);
   write(arduino_usb, "0512,0512,0512,0512", sizeof(msg));
   sleep(settle_time);
-  write(arduino_usb, "0512,612,0512,412", sizeof(msg));
+  write(arduino_usb, "0512,580,0512,430", sizeof(msg));
   sleep(settle_time);
   write(arduino_usb, "0512,612,0512,412", sizeof(msg));
   sleep(settle_time);
